@@ -1,0 +1,42 @@
+body {
+  background: #0e9aa7; }
+  body .container {
+    max-width: 70%;
+    margin: auto;
+    text-align: center; }
+    body .container h1 {
+      color: white;
+      font-size: 90px;
+      font-weight: 900; }
+    body .container h2 {
+      color: white;
+      font-size: 70px;
+      font-weight: 900;
+      width: 30%;
+      height: 20rem;
+      border: 1rem solid white;
+      border-radius: 50%;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+    body .container .adjustment-btn {
+      color: white;
+      margin: auto  10rem;
+      width: 10rem;
+      height: 3rem;
+      background: transparent;
+      border: 0.5rem solid white;
+      font-size: 20px;
+      font-weight: 900; }
+    body .container button {
+      color: white;
+      margin: auto  10rem;
+      width: 10rem;
+      height: 3rem;
+      background: transparent;
+      border: 0.5rem solid white;
+      font-size: 20px;
+      font-weight: 900; }
+
+/*# sourceMappingURL=style.css.map */

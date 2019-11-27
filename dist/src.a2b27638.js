@@ -31730,9 +31730,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"src/app.js":[function(require,module,exports) {
-
-},{}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -31799,7 +31797,7 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/style.scss":[function(require,module,exports) {
+},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/styles/style.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -31811,18 +31809,226 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
-var _app = _interopRequireDefault(require("./app"));
-
-require("./style.scss");
+require("./styles/style.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mountNode = document.getElementById("app");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-_reactDom.default.render(_react.default.createElement(_app.default, {
-  name: "Jane"
-}), mountNode);
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./app":"src/app.js","./style.scss":"src/style.scss"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var App =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(App, _React$Component);
+
+  function App() {
+    var _this;
+
+    _classCallCheck(this, App);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this));
+    _this.state = {
+      timer: 1500,
+      timerString: "25:00",
+      timerSet: 1500,
+      buttonLabel: "Start"
+    };
+    return _this;
+  }
+
+  _createClass(App, [{
+    key: "adjustMinutes",
+    value: function adjustMinutes(num) {
+      var newTimer = this.state.timer + num;
+      newTimer = newTimer < 0 ? 0 : newTimer;
+      this.setState({
+        timer: newTimer,
+        timerString: timeToString(newTimer),
+        timerSet: newTimer
+      });
+    }
+  }, {
+    key: "startTimer",
+    value: function startTimer() {
+      var _this2 = this;
+
+      this.state.myTimer = setInterval(function () {
+        var newTime = _this2.state.timer - 1;
+
+        _this2.setState({
+          timer: newTime,
+          timerString: timeToString(newTime)
+        });
+      }, 1000);
+      this.setState({
+        buttonLabel: "Stop"
+      });
+    }
+  }, {
+    key: "stopTimer",
+    value: function stopTimer() {
+      clearInterval(this.state.myTimer);
+      this.setState({
+        buttonLabel: "Start"
+      });
+    }
+  }, {
+    key: "resetTimer",
+    value: function resetTimer() {
+      clearInterval(this.state.myTimer);
+      this.setState({
+        buttonLabel: "Start",
+        timer: this.state.timerSet,
+        timerString: timeToString(this.state.timerSet)
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", {
+        className: "container text-center"
+      }, _react.default.createElement("h1", null, "Set Timer"), _react.default.createElement(Timer, {
+        timer: this.state.timerString,
+        adjustMinutes: this.adjustMinutes.bind(this)
+      }), _react.default.createElement(StartTimer, {
+        startTimer: this.startTimer.bind(this),
+        label: this.state.buttonLabel,
+        stopTimer: this.stopTimer.bind(this)
+      }), _react.default.createElement("br", null), _react.default.createElement(ResetTimer, {
+        reset: this.resetTimer.bind(this)
+      }));
+    }
+  }]);
+
+  return App;
+}(_react.default.Component);
+
+var Timer =
+/*#__PURE__*/
+function (_React$Component2) {
+  _inherits(Timer, _React$Component2);
+
+  function Timer() {
+    _classCallCheck(this, Timer);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Timer).apply(this, arguments));
+  }
+
+  _createClass(Timer, [{
+    key: "addTime",
+    value: function addTime() {
+      this.props.adjustMinutes(300);
+    }
+  }, {
+    key: "subtractTime",
+    value: function subtractTime() {
+      this.props.adjustMinutes(-300);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", null, _react.default.createElement("div", {
+        className: "inline-div"
+      }, _react.default.createElement("h2", null, this.props.timer)), _react.default.createElement("div", {
+        className: "inline-div"
+      }, _react.default.createElement("button", {
+        className: "adjustment-btn",
+        onClick: this.addTime.bind(this)
+      }, "+"), _react.default.createElement("button", {
+        className: "adjustment-btn",
+        onClick: this.subtractTime.bind(this)
+      }, "-")));
+    }
+  }]);
+
+  return Timer;
+}(_react.default.Component);
+
+var StartTimer =
+/*#__PURE__*/
+function (_React$Component3) {
+  _inherits(StartTimer, _React$Component3);
+
+  function StartTimer() {
+    _classCallCheck(this, StartTimer);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(StartTimer).apply(this, arguments));
+  }
+
+  _createClass(StartTimer, [{
+    key: "handleClick",
+    value: function handleClick(e) {
+      if (this.props.label === "Start") {
+        this.props.startTimer();
+      } else {
+        this.props.stopTimer();
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("button", {
+        onClick: this.handleClick.bind(this)
+      }, this.props.label);
+    }
+  }]);
+
+  return StartTimer;
+}(_react.default.Component);
+
+var ResetTimer =
+/*#__PURE__*/
+function (_React$Component4) {
+  _inherits(ResetTimer, _React$Component4);
+
+  function ResetTimer() {
+    _classCallCheck(this, ResetTimer);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(ResetTimer).apply(this, arguments));
+  }
+
+  _createClass(ResetTimer, [{
+    key: "handleClick",
+    value: function handleClick(e) {
+      this.props.reset();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("button", {
+        onClick: this.handleClick.bind(this)
+      }, "Reset");
+    }
+  }]);
+
+  return ResetTimer;
+}(_react.default.Component);
+
+function timeToString(time) {
+  var minutes = Math.floor(time / 60);
+  var seconds = time - minutes * 60;
+  return minutes + ":" + ("0" + seconds).slice(-2);
+}
+
+var timer = document.getElementById("app");
+
+_reactDom.default.render(_react.default.createElement(App, null), timer);
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./styles/style.scss":"src/styles/style.scss"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -31850,7 +32056,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54316" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53153" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
