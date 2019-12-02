@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import "./styles/style.scss";
+import Timer from "./components/Timer";
+import StartTimer from "./components/Start";
+import ResetTimer from "./components/Reset";
+
 
 class App extends Component {
     constructor() {
@@ -66,64 +68,10 @@ class App extends Component {
     }
 }
 
-class Timer extends React.Component {
-    addTime() {
-        this.props.adjustMinutes(300);
-    }
-
-    subtractTime() {
-        this.props.adjustMinutes(-300);
-    }
-
-    render() {
-        return (
-            <div>
-                <div className="inline-div">
-                    <h2>{this.props.timer}</h2>
-                </div>
-                <div className="inline-div">
-                    <button className="adjustment-btn" onClick={this.addTime.bind(this)}>+</button>
-                    <button className="adjustment-btn" onClick={this.subtractTime.bind(this)}>-</button>
-                </div>
-            </div>
-        )
-    }
-}
-
-class StartTimer extends React.Component {
-    handleClick(e) {
-        if (this.props.label === "Start") {
-            this.props.startTimer();
-        } else {
-            this.props.stopTimer();
-        }
-
-    }
-
-    render() {
-        return (
-            <button onClick={this.handleClick.bind(this)}>{this.props.label}</button>
-        );
-    }
-}
-
-class ResetTimer extends React.Component {
-    handleClick(e) {
-        this.props.reset();
-    }
-
-    render() {
-        return (
-            <button onClick={this.handleClick.bind(this)}>Reset</button>
-        )
-    }
-}
-
 function timeToString(time) {
     let minutes = Math.floor(time / 60);
     let seconds = time - minutes * 60;
     return minutes + ":" + ("0" + seconds).slice(-2);
 }
 
-let timer = document.getElementById("app");
-ReactDOM.render(<App />, timer);
+export default App;
